@@ -16,6 +16,10 @@ const Pessoa = sequelize.define(
         telefone: {
             type: DataTypes.STRING,
             allowNull: true,
+        },
+        vocalista: {
+            type: DataTypes.BOOLEAN,
+            allowNull: true,
         }
     },
     {
