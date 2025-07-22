@@ -1,4 +1,4 @@
-import { sequelize } from "../config/postgres";
+import { sequelize } from "../config/postgres.js";
 import { DataTypes } from "sequelize";
 
 const Instrumento = sequelize.define(
