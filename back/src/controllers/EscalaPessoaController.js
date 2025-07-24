@@ -1,12 +1,17 @@
-import Instrumento from '../models/InstrumentoModel.js';
+import EscalaPessoa from '../models/EscalaPessoaModel.js';
 
 const get = async (req, res) => {
     try {
         const id = req.params.id ? req.params.id.toString().replace(/\D/g, '') : null;
 
         if (!id) {
-            const response = await Instrumento.findAll({
+            const response = await EscalaPessoa.findAll({
                 order: [['id', 'desc']],
+                include: [
+                    { association: 'escala' },
+                    { association: 'pessoa' },
+                    { association: 'instrumento' }
+                ]
             });
 
             return res.status(200).send({
@@ -15,10 +20,15 @@ const get = async (req, res) => {
             });
         }
 
-        const response = await Instrumento.findOne({
+        const response = await EscalaPessoa.findOne({
             where: {
                 id: id
-            }
+            },
+            include: [
+                { association: 'escala' },
+                { association: 'pessoa' },
+                { association: 'instrumento' }
+            ]
         });
 
         if (!response) {
@@ -39,11 +49,17 @@ const get = async (req, res) => {
 const create = async (corpo) => {
     try {
         const {
-            nome
+            idEscala,
+            idPessoa,
+            idInstrumento,
+            observacoes
         } = corpo
 
-        const response = await Instrumento.create({
-            nome
+        const response = await EscalaPessoa.create({
+            idEscala,
+            idPessoa,
+            idInstrumento,
+            observacoes
         });
 
         return response;
@@ -55,7 +71,7 @@ const create = async (corpo) => {
 
 const update = async (corpo, id) => {
     try {
-        const response = await Instrumento.findOne({
+        const response = await EscalaPessoa.findOne({
             where: {
                 id
             }
@@ -104,7 +120,7 @@ const destroy = async (req, res) => {
             return res.status(400).send('informa ai paezao')
         }
 
-        const response = await Instrumento.findOne({
+        const response = await EscalaPessoa.findOne({
             where: {
                 id
             }

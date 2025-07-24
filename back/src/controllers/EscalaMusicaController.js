@@ -1,12 +1,16 @@
-import Instrumento from '../models/InstrumentoModel.js';
+import EscalaMusica from '../models/EscalaMusicaModel.js';
 
 const get = async (req, res) => {
     try {
         const id = req.params.id ? req.params.id.toString().replace(/\D/g, '') : null;
 
         if (!id) {
-            const response = await Instrumento.findAll({
+            const response = await EscalaMusica.findAll({
                 order: [['id', 'desc']],
+                include: [
+                    { association: 'escala' },
+                    { association: 'musica' }
+                ]
             });
 
             return res.status(200).send({
@@ -15,10 +19,14 @@ const get = async (req, res) => {
             });
         }
 
-        const response = await Instrumento.findOne({
+        const response = await EscalaMusica.findOne({
             where: {
                 id: id
-            }
+            },
+            include: [
+                { association: 'escala' },
+                { association: 'musica' }
+            ]
         });
 
         if (!response) {
@@ -39,11 +47,13 @@ const get = async (req, res) => {
 const create = async (corpo) => {
     try {
         const {
-            nome
+            idEscala,
+            idMusica
         } = corpo
 
-        const response = await Instrumento.create({
-            nome
+        const response = await EscalaMusica.create({
+            idEscala,
+            idMusica
         });
 
         return response;
@@ -55,7 +65,7 @@ const create = async (corpo) => {
 
 const update = async (corpo, id) => {
     try {
-        const response = await Instrumento.findOne({
+        const response = await EscalaMusica.findOne({
             where: {
                 id
             }
@@ -104,7 +114,7 @@ const destroy = async (req, res) => {
             return res.status(400).send('informa ai paezao')
         }
 
-        const response = await Instrumento.findOne({
+        const response = await EscalaMusica.findOne({
             where: {
                 id
             }

@@ -17,7 +17,8 @@ const Escala = sequelize.define(
         },
         horarioInicio: {
             field: 'horario_inicio',
-            type: DataTypes.DATE
+            type: DataTypes.STRING,
+            allowNull: true,
         },
         local: {
             type: DataTypes.STRING,
