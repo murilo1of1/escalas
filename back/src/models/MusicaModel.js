@@ -1,8 +1,8 @@
 import { sequelize } from "../config/postgres.js";
 import { DataTypes } from "sequelize";
 
-const Pessoa = sequelize.define(
-    "pessoas",
+const Musica = sequelize.define(
+    "musicas",
     {
         id: {
             type: DataTypes.INTEGER,
@@ -13,17 +13,21 @@ const Pessoa = sequelize.define(
             type: DataTypes.STRING,
             allowNull: false,
         },
-        apelido: {
+        artista: {
             type: DataTypes.STRING,
+            allowNull: false,
+        },
+        link: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        observacoes: {
+            type: DataTypes.TEXT,  
             allowNull: true,
         },
-        telefone: {
+        tom: {
             type: DataTypes.STRING,
-            allowNull: true,
-        },
-        vocalista: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
+            allowNull: false,
         }
     },
     {
@@ -34,4 +38,4 @@ const Pessoa = sequelize.define(
   }
 );
 
-export default Pessoa;
+export default Musica;

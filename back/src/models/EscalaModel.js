@@ -1,31 +1,36 @@
 import { sequelize } from "../config/postgres.js";
 import { DataTypes } from "sequelize";
 
-const Pessoa = sequelize.define(
-    "pessoas",
+const Escala = sequelize.define(
+    "escalas",
     {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
         },
-        nome: {
+        tipoEvento: {
+            field: 'tipo_evento',
+            type: DataTypes.STRING,
+            allowNull: false,
+            defaultValue: 'Culto',
+        },
+        horarioInicio: {
+            field: 'horario_inicio',
+            type: DataTypes.DATE
+        },
+        local: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        apelido: {
+        observacoes: {
             type: DataTypes.STRING,
             allowNull: true,
         },
-        telefone: {
-            type: DataTypes.STRING,
-            allowNull: true,
-        },
-        vocalista: {
-            type: DataTypes.BOOLEAN,
-            allowNull: true,
-        }
-    },
+        dataEvento: {
+            field: 'data_evento',
+            type: DataTypes.DATE,           
+    }},
     {
     freezeTableName: true,
     timestamps: true,
@@ -34,4 +39,4 @@ const Pessoa = sequelize.define(
   }
 );
 
-export default Pessoa;
+export default Escala;

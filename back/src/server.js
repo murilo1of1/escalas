@@ -9,7 +9,7 @@ import { fileURLToPath } from 'node:url';
 import './models/index.js';
 import fileupload from 'express-fileupload';
 
-//import Routes from './routes/index.js';
+import Routes from './routes/index.js';
 import { sequelize } from './config/postgres.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -40,14 +40,14 @@ app.use(fileupload({
 
 app.use(express.static('public'));
 
-/* Routes(app);
+Routes(app);
 app.use((req, res) => {
 res.status(404).send('404 - página não encontrada');
-}) */
+}) 
 
 sequelize.authenticate()
   .then(() => {
-    console.log('deu boa');
+    console.log('funcionando cambio');
   });
 
 app.listen(process.env.API_PORT, (e) => {
